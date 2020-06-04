@@ -1,10 +1,3 @@
-# logstash-deployment.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: elk
----
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
