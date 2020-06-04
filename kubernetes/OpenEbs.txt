@@ -1,0 +1,17 @@
+#/////////// Installation \\\\\\\\\\
+sudo yum -y install iscsi-initiator-utils 
+sudo systemctl enable iscsid --now
+sudo systemctl start iscsid --now
+
+#/////////// K8S Setting \\\\\\\\\\
+
+kubectl apply -f https://openebs.github.io/charts/openebs-operator-1.5.0.yaml
+
+#check that all pods are created, some will have errors
+kubectl get pods -n openebs
+
+#check that  default storage classes are created, may take some time so wait for them
+kubectl get sc
+
+#Patch the default storageclass
+kubectl patch storageclass openebs-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'

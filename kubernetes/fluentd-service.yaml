@@ -1,13 +1,19 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: elk
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: fluentd
+  namespace: elk
   labels:
     service: fluentd
 spec:
   type: NodePort
   selector:
-    run: fluentd
+    k8s-app: fluentd-logging
   ports:
   - port: 24224
     targetPort: 24224

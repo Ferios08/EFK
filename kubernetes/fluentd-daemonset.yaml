@@ -1,12 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: elk
+---
+
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: fluentd
-  namespace: kube-system
+  namespace: elk
   labels:
     k8s-app: fluentd-logging
     version: v1
     kubernetes.io/cluster-service: "true"
+    
 spec:
   selector:
     matchLabels:
@@ -31,7 +38,7 @@ spec:
         #image: quay.io/fluent/fluentd-kubernetes-daemonset
         env:
           - name:  FLUENT_ELASTICSEARCH_HOST
-            value: "elasticsearch.efk"
+            value: "elasticsearch"
           - name:  FLUENT_ELASTICSEARCH_PORT
             value: "9200"
           - name: FLUENT_ELASTICSEARCH_SCHEME
