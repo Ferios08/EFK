@@ -185,7 +185,7 @@ data:
         # Uncomment this to get k8s events:
         - event
       period: 10s
-      hosts: ["kube-state-metrics:8080"]
+      hosts: ["kube-state-metrics.kube-system.svc.cluster.local:8080"]
 ---
 # Deploy singleton instance in the whole cluster for some unique data sources, like kube-state-metrics
 apiVersion: apps/v1
@@ -214,7 +214,7 @@ spec:
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch.kube-system.svc.cluster.local
+          value: elasticsearch.elk.svc.cluster.local
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: ELASTICSEARCH_USERNAME
